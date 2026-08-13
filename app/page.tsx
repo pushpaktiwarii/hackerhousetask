@@ -561,6 +561,7 @@ export default function Home() {
         <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 24px', position: 'relative' }}>
 
           <div 
+            className="canvas-frame"
             style={{ 
               position: 'relative', 
               width: '100%', 
@@ -693,38 +694,21 @@ export default function Home() {
         </section>
 
         {/* ── Sidebar ── */}
-        <aside style={{
-          borderLeft: '1px solid rgba(251,247,236,0.15)',
-          padding: '24px 20px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '24px',
-          overflowY: 'auto',
-          background: 'rgba(10, 107, 60, 0.45)',
-          backdropFilter: 'blur(12px)',
-        }}>
+        <aside className="glass-sidebar">
 
           {/* Choose Format */}
           <section>
             <label style={labelSt}>Choose Format</label>
-            <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+            <div className="premium-tab-container" style={{ marginTop: '8px' }}>
               <button 
                 onClick={() => setState(s => ({ ...s, format: 'postcard', stampConfig: null }))}
-                style={{
-                  ...btn(state.format === 'postcard' ? 'var(--cream)' : 'rgba(251,247,236,0.06)', state.format === 'postcard' ? 'var(--green-deep)' : 'var(--cream)', true),
-                  flex: 1,
-                  border: state.format === 'postcard' ? 'none' : '1px solid rgba(251,247,236,0.2)',
-                }}
+                className={`tab-btn ${state.format === 'postcard' ? 'tab-btn-active' : ''}`}
               >
                 📬 Postcard
               </button>
               <button 
                 onClick={() => setState(s => ({ ...s, format: 'passport', stampConfig: null }))}
-                style={{
-                  ...btn(state.format === 'passport' ? 'var(--cream)' : 'rgba(251,247,236,0.06)', state.format === 'passport' ? 'var(--green-deep)' : 'var(--cream)', true),
-                  flex: 1,
-                  border: state.format === 'passport' ? 'none' : '1px solid rgba(251,247,236,0.2)',
-                }}
+                className={`tab-btn ${state.format === 'passport' ? 'tab-btn-active' : ''}`}
               >
                 🛂 Passport ID
               </button>
@@ -734,24 +718,16 @@ export default function Home() {
           {/* Photo Treatment */}
           <section>
             <label style={labelSt}>Photo Treatment</label>
-            <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+            <div className="premium-tab-container" style={{ marginTop: '8px' }}>
               <button 
                 onClick={() => setState(s => ({ ...s, halftone: true, stampConfig: null }))}
-                style={{
-                  ...btn(state.halftone ? 'var(--cream)' : 'rgba(251,247,236,0.06)', state.halftone ? 'var(--green-deep)' : 'var(--cream)', true),
-                  flex: 1,
-                  border: state.halftone ? 'none' : '1px solid rgba(251,247,236,0.2)',
-                }}
+                className={`tab-btn ${state.halftone ? 'tab-btn-active' : ''}`}
               >
                 🟢 Press Print
               </button>
               <button 
                 onClick={() => setState(s => ({ ...s, halftone: false, stampConfig: null }))}
-                style={{
-                  ...btn(!state.halftone ? 'var(--cream)' : 'rgba(251,247,236,0.06)', !state.halftone ? 'var(--green-deep)' : 'var(--cream)', true),
-                  flex: 1,
-                  border: !state.halftone ? 'none' : '1px solid rgba(251,247,236,0.2)',
-                }}
+                className={`tab-btn ${!state.halftone ? 'tab-btn-active' : ''}`}
               >
                 ✨ Glossy
               </button>
@@ -861,15 +837,9 @@ export default function Home() {
               id="btn-stamp-slam"
               onClick={handleSlam}
               disabled={isAnimatingRef.current}
-              style={{
-                ...btn(state.stampConfig ? 'var(--green-mid)' : 'var(--pink)', '#fff'),
-                width: '100%',
-                border: '1px solid rgba(251,247,236,0.15)',
-                boxShadow: '0 8px 24px rgba(236,30,121,0.25)',
-                fontSize: '14px',
-              }}
+              className={`btn-slam-premium ${state.stampConfig ? 'btn-slam-applied' : ''}`}
             >
-              {isAnimatingRef.current ? '💥 Slamming Stamp…' : state.stampConfig ? '💥 Re-Slam entry stamp' : '💥 Slam Entry Stamp'}
+              {isAnimatingRef.current ? '💥 Slamming Stamp…' : state.stampConfig ? '💥 Re-Slam Entry Stamp' : '💥 Slam Entry Stamp'}
             </button>
             <p style={{ marginTop: '8px', fontSize: '11px', color: 'rgba(251,247,236,0.45)', fontFamily: 'var(--font-mono)', textAlign: 'center' }}>
               Slams ink stamp down with sound & shake
@@ -931,28 +901,140 @@ export default function Home() {
       <input ref={fileInputRef} type="file" accept="image/*,.heic" onChange={onFileChange} style={{ display: 'none' }} id="file-input" />
 
       <style>{`
+        .glass-sidebar {
+          border-left: 1px solid rgba(251, 247, 236, 0.15);
+          padding: 24px 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          overflow-y: auto;
+          background: rgba(8, 46, 35, 0.55);
+          backdrop-filter: blur(20px);
+          box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
+        }
         .input-premium {
           width: 100%;
           margin-top: 6px;
           padding: 12px 16px;
-          background: rgba(251, 247, 236, 0.05);
-          border: 1px solid rgba(251, 247, 236, 0.18);
-          border-radius: 6px;
+          background: rgba(251, 247, 236, 0.04);
+          border: 1px solid rgba(251, 247, 236, 0.15);
+          border-radius: 8px;
           color: var(--cream);
           font-family: var(--font-mono);
           font-size: 14px;
           outline: none;
           letter-spacing: 0.02em;
-          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .input-premium:focus {
           border-color: var(--yellow);
-          background: rgba(251, 247, 236, 0.1);
-          box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.15);
+          background: rgba(251, 247, 236, 0.08);
+          box-shadow: 0 0 0 4px rgba(255, 212, 0, 0.12);
+        }
+        .premium-tab-container {
+          display: flex;
+          background: rgba(17, 17, 17, 0.25);
+          padding: 4px;
+          border-radius: 8px;
+          border: 1px solid rgba(251, 247, 236, 0.08);
+          gap: 4px;
+        }
+        .tab-btn {
+          flex: 1;
+          padding: 10px 14px;
+          font-family: var(--font-mono);
+          font-weight: bold;
+          font-size: 12px;
+          letter-spacing: 0.03em;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 6px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          border: none;
+          background: transparent;
+          color: rgba(251, 247, 236, 0.6);
+        }
+        .tab-btn:hover {
+          color: var(--cream);
+          background: rgba(251, 247, 236, 0.04);
+        }
+        .tab-btn-active {
+          background: var(--cream) !important;
+          color: var(--green-deep) !important;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .canvas-frame {
+          position: relative;
+          transition: all 0.3s ease;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 35px 90px rgba(0, 0, 0, 0.65);
+        }
+        .canvas-frame:hover {
+          box-shadow: 0 45px 110px rgba(0, 0, 0, 0.75);
+          transform: translateY(-2px);
+        }
+        .btn-slam-premium {
+          background: var(--pink);
+          color: #fff;
+          border: 1px solid rgba(251, 247, 236, 0.2);
+          border-radius: 8px;
+          padding: 14px 20px;
+          font-family: var(--font-mono);
+          font-weight: bold;
+          font-size: 14px;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          width: 100%;
+          box-shadow: 0 6px 20px rgba(236, 30, 121, 0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+        .btn-slam-premium:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(236, 30, 121, 0.45);
+          filter: brightness(1.1);
+        }
+        .btn-slam-premium:active {
+          transform: translateY(1px);
+        }
+        .btn-slam-applied {
+          background: var(--green-mid);
+          box-shadow: 0 4px 12px rgba(13, 122, 70, 0.3);
+        }
+        .btn-slam-applied:hover {
+          box-shadow: 0 6px 18px rgba(13, 122, 70, 0.45);
+        }
+        input[type="range"] {
+          -webkit-appearance: none;
+          appearance: none;
+          background: rgba(251, 247, 236, 0.15);
+          height: 6px;
+          border-radius: 3px;
+          outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: var(--yellow);
+          cursor: pointer;
+          transition: transform 0.1s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+          transform: scale(1.2);
         }
         @media (max-width: 768px) {
           main { grid-template-columns: 1fr !important; }
-          aside { border-left: none !important; border-top: 1px solid rgba(251,247,236,0.12) !important; }
+          .glass-sidebar { border-left: none !important; border-top: 1px solid rgba(251,247,236,0.12) !important; }
         }
       `}</style>
     </div>
