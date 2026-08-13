@@ -76,7 +76,7 @@ export default function SharePage({ params }: Props) {
       </div>
 
       <a
-        href={appUrl}
+        href={`${appUrl}/generate`}
         style={{
           marginTop: '32px',
           background: '#FBF7EC',
