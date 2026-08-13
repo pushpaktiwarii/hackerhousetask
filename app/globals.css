@@ -1,27 +1,79 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Courier+Prime:wght@400;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #FBF7EC;
+  --green-deep: #0A6B3C;
+  --green-mid: #0D7A46;
+  --pink: #EC1E79;
+  --yellow: #FFD400;
+  --ink: #111111;
+  --font-serif: 'DM Serif Display', serif;
+  --font-mono: 'Courier Prime', monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+  height: 100%;
+  font-family: var(--font-mono);
+  background: var(--green-deep);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* ── Typography ─────────────────────────────────── */
+.font-serif  { font-family: var(--font-serif); }
+.font-mono   { font-family: var(--font-mono); }
+
+/* ── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--green-deep); }
+::-webkit-scrollbar-thumb { background: rgba(251,247,236,0.3); border-radius: 3px; }
+
+/* ── Animations ─────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes stampSlam {
+  0%   { transform: translateY(-60px) scale(0.9); opacity: 0.3; }
+  60%  { transform: translateY(0) scaleY(0.85) scaleX(1.08); }
+  80%  { transform: translateY(-6px) scale(1.03); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  20%  { transform: translate(-3px, 1px) rotate(-0.5deg); }
+  40%  { transform: translate(3px, -1px) rotate(0.5deg); }
+  60%  { transform: translate(-2px, 1px) rotate(-0.3deg); }
+  80%  { transform: translate(2px, -1px) rotate(0.3deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes countdown {
+  0%   { transform: scale(1.4); opacity: 0; }
+  20%  { transform: scale(1); opacity: 1; }
+  80%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0; }
+}
+
+.animate-fadeUp    { animation: fadeUp 0.5s ease both; }
+.animate-slam      { animation: stampSlam 0.75s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+.animate-shake     { animation: shake 0.4s ease; }
+.animate-pulse     { animation: pulse 1.5s ease infinite; }
+.animate-spin      { animation: spin 1s linear infinite; }
+.animate-countdown { animation: countdown 0.9s ease both; }

@@ -37,7 +37,7 @@ function hashName(name: string): number {
 }
 
 export function generateVisaClass(name: string): string {
-  const h = hashName(name || 'BUILDER');
+  const h = Math.abs(hashName(name || 'BUILDER'));
   const code = CODES[h % CODES.length];
   const level = LEVELS[(h >> 4) % LEVELS.length];
   const desc = DESCRIPTIONS[(h >> 8) % DESCRIPTIONS.length];
