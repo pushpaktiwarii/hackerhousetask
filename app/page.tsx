@@ -1,4 +1,5 @@
 'use client';
+// Trigger redeploy to refresh Vercel routing cache after project rename
 
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { fileToImage } from '@/lib/heic';
